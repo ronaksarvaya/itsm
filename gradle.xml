@@ -1,0 +1,1246 @@
+JustPaste.it
+System Error LOL
+User avatar
+Anonumus @Anonumus · 1 Mar 2026 · edited: 11m
+Public 
+Practical 1 - User Login
+
+step 1: Gradle Scripts -> libs.version.toml -> agp = 8.9.1
+step 2: Gradle Scripts -> build.gradle.kts -> compilesdk = 36
+step 3: Sync Now
+ 
+
+MainAcitivity.kt
+
+There might be red errors, click red bulb and select first option , it'll be solved 
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+    //    private lateinit var appBarConfiguration: AppBarConfiguration
+//    private lateinit var binding: ActivityMainBinding
+    lateinit var edittext1:EditText
+    lateinit var edittext2:EditText
+    lateinit var login:Button
+    lateinit var signup:Button
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        Toast.makeText(this,"hello",Toast.LENGTH_LONG).show()
+        edittext1=findViewById(R.id.user)
+        edittext2=findViewById(R.id.pass)
+        login=findViewById(R.id.btn)
+        signup=findViewById(R.id.btn1)
+        login.setOnClickListener {
+
+            if(edittext1.text.toString().equals (edittext2.text.toString())){
+                Toast.makeText(this,"login success",Toast.LENGTH_LONG).show()
+            }
+            else{
+                Toast.makeText(this,"login fail",Toast.LENGTH_LONG).show()
+            }
+
+        }
+        signup.setOnClickListener {
+            Toast.makeText(this,"signup click",Toast.LENGTH_LONG).show()
+
+
+
+
+        }
+
+    }
+}
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="50dp"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#DBB6F8"
+        android:layout_margin="40dp"
+        android:padding="20dp">
+
+        <EditText
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter username"
+            android:drawableStart="@drawable/sharp_frame_person_24"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Password"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"/>
+
+            <Button
+                android:id="@+id/btn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SignUp"
+                android:layout_marginStart="10dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+output: loginform , put user and pass both same , like user = abc and pass = abc .
+user and pass must be same
+
+
+
+Practical 1 - create a ListView with 4 items. On clicking an item, display the selected item in a Toast
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Toolbar android:layout_width="520dp" android:layout_height="50dp"
+        android:title="Insha(A-09)" android:layout_marginRight="-510dp"
+        android:background="#C19610"/>
+
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+MainActivity.kt 
+package dont change this line in your pc
+
+
+import android.os.Bundle
+import android.view.Gravity
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+class MainActivity : AppCompatActivity() {
+    lateinit var mylist: ListView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+        mylist = findViewById(R.id.listview)
+        val country = arrayOf("India", "US", "Nepal", "Japan")
+        mylist.adapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, country)
+
+        mylist.setOnItemClickListener { _, _, position, _ ->
+            val toast = Toast.makeText(
+                this,
+                "Hello " + country[position],
+                Toast.LENGTH_LONG
+            )
+            toast.setGravity(Gravity.CENTER, 0, 0)
+            toast.show()
+        }
+    }
+}
+output - when clicked on any country , the country name pops up
+
+ -----------------------------------------------------------
+Practical 2 - Create an Android application to pass data from one activity to another using Intent.
+step 1: Gradle Scripts -> libs.version.toml -> agp = 8.9.1
+step 2: Gradle Scripts -> build.gradle.kts -> compilesdk = 36
+step 3: Sync Now
+
+
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" tools:context=".MainActivity">
+    <Toolbar android:layout_width="520dp" android:layout_height="50dp"
+        android:title="Ronak" android:layout_marginRight="-510dp"
+        android:background="#CCAAB6"/>
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:hint="Enter your Name"
+        android:minHeight="48dp" />
+    <Button android:id="@+id/btn" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="Submit"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
+MainActivity.kt
+
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+class MainActivity:AppCompatActivity(){
+    lateinit var editText:EditText
+    lateinit var button:Button
+    override fun onCreate(savedInstanceState:Bundle?){
+        super.onCreate(savedInstanceState);enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+        editText=findViewById(R.id.edit);button=findViewById(R.id.btn)
+        button.setOnClickListener{
+            val intent=Intent(this,Home::class.java)
+            intent.putExtra("msg",editText.text.toString())
+            startActivity(intent)
+        }}}
+Step 3: Now create a Home.kt file .
+app -> kotlin+java -> com.example -> (your current prac) -> right click -> new -> kotlin class file -> write Home -> click file
+
+Home.kt
+
+
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+class Home:AppCompatActivity(){
+    override fun onCreate(savedInstanceState:Bundle?){
+        super.onCreate(savedInstanceState)
+        val msg=intent.getStringExtra("msg")
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
+    }}
+
+Step4: app -> manifests -> AndroidManifest.xml -> after <application> paste this ->
+
+ <activity android:name=".Home"/>
+
+
+ output - write your name and submit , same name pops up
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+Practical 3 - Create an Android application to check whether the app is connected to Mobile Data or Wi-Fi. 
+step 1: Gradle Scripts -> libs.version.toml -> agp = 8.9.1
+step 2: Gradle Scripts -> build.gradle.kts -> compilesdk = 36
+step 3: Sync Now
+step 4: app -> manifests -> AndroidManifests.xml : after <manifest> add this :
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+<uses-permission android:name="android.permission.INTERNET"/>
+
+step 5: MainActivity.kt
+
+
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
+import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+class MainActivity:AppCompatActivity(){
+    override fun onCreate(savedInstanceState:Bundle?){
+        super.onCreate(savedInstanceState);enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+        val manager=getSystemService(Context.CONNECTIVITY_SERVICE)
+                as ConnectivityManager
+        val networkInfo:NetworkInfo?=manager.activeNetworkInfo
+        if(networkInfo!=null&&networkInfo.isConnectedOrConnecting){
+            if(networkInfo.type==ConnectivityManager.TYPE_MOBILE){
+                Toast.makeText(this,"You are Connected to Mobile Network",
+                    Toast.LENGTH_LONG).show()}
+            if(networkInfo.type==ConnectivityManager.TYPE_WIFI){
+                Toast.makeText(this,"You are Connected to Wi-Fi",
+                    Toast.LENGTH_LONG).show()}
+        }else{
+            Toast.makeText(this,"Offline",Toast.LENGTH_LONG).show()}
+    }}
+
+ouput - see a pop up as soon as you open the app
+
+(//if issue arises activitly_main ko new banao )
+
+----------------------------------------------------------------------------------------------------------------
+Practical 4 - Create the Telephone API in Android to make a call. This application allows the user to enter a phone number and make a direct phone call. It requests CALL_PHONE permission at runtime before initiating the call. 
+
+
+step 1: Gradle Scripts -> libs.version.toml -> agp = 8.9.1
+step 2: Gradle Scripts -> build.gradle.kts -> compilesdk = 36
+step 3: Sync Now
+step 4: app -> manifests -> AndroidManifests.xml : after <manifest> add this :
+<uses-permission android:name="android.permission.CALL_PHONE"
+
+tools:ignore="PermissionImpliesUnsupportedChromeOsHardware"/>
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" tools:context=".MainActivity">
+    <androidx.appcompat.widget.Toolbar android:layout_width="match_parent"
+        android:layout_height="50dp" android:title="Telephone"
+        android:background="#F00824"/>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:orientation="vertical"
+        android:padding="55dp">
+        <EditText android:id="@+id/input" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="Enter your number"
+            android:inputType="phone"/>
+        <Button android:id="@+id/btn" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="Call"/>
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
+MainActivity.kt
+
+
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+class MainActivity:AppCompatActivity(){
+    private val REQUEST_CODE=1
+    lateinit var btn:Button
+    lateinit var edt:EditText
+    override fun onCreate(savedInstanceState:Bundle?){
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        btn=findViewById(R.id.btn);edt=findViewById(R.id.input)
+        btn.setOnClickListener{
+            if(ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.CALL_PHONE)!=PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.CALL_PHONE),REQUEST_CODE)
+            }else{makeCall()}}}
+    private fun makeCall(){
+        val number=edt.text.toString()
+        val intent=Intent(Intent.ACTION_CALL)
+        intent.data=Uri.parse("tel:$number")
+        startActivity(intent)
+    }}
+ ouput - enter your number and submit and you will be redirected to a call
+------------------------------------------------------------------------------------------------------------------------
+Practical 5 - Create an Android application to request audio recording permission from the user. This application requests RECORD_AUDIO permission at runtime. It displays a Toast message indicating whether the permission is granted or denied. 
+
+step 1: Gradle Scripts -> libs.version.toml -> agp = 8.9.1
+step 2: Gradle Scripts -> build.gradle.kts -> compilesdk = 36
+step 3: Sync Now
+step 4: app -> manifests -> AndroidManifests.xml : after <manifest> add this :
+<uses-permission android:name="android.permission.RECORD_AUDIO"/>
+Here only MainActivity.kt 
+
+import android.content.pm.PackageManager
+import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+class MainActivity:AppCompatActivity(){
+    private val RECORD_AUDIO=1
+    override fun onCreate(savedInstanceState:Bundle?){
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        setPermission()}
+    private fun setPermission(){
+        val permission=ContextCompat.checkSelfPermission(this,
+            android.Manifest.permission.RECORD_AUDIO)
+        if(permission!=PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    android.Manifest.permission.RECORD_AUDIO)){
+                val builder=AlertDialog.Builder(this)
+                builder.setTitle("Permission Required")
+                builder.setMessage("Permission required to record audio")
+                builder.setPositiveButton("OK"){_,_->giveRequest()}
+                builder.create().show()
+            }else{giveRequest()}}}
+    private fun giveRequest(){
+        ActivityCompat.requestPermissions(this,
+            arrayOf(android.Manifest.permission.RECORD_AUDIO),RECORD_AUDIO)}
+    override fun onRequestPermissionsResult(requestCode:Int,
+                                            permissions:Array<out String>,grantResults:IntArray){
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults)
+        when(requestCode){
+            RECORD_AUDIO->{
+                if(grantResults.isEmpty()||
+                    grantResults[0]!=PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(this,"Permission Denied",
+                        Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this,"Permission Granted",
+                        Toast.LENGTH_SHORT).show()}}}}}
+ouput - Asks for recording permission , once allowed, a toast appears
+---------------------------------------------------------------------------------------------------------------------------
+
+Practical 6 : Create an Android application to demonstrate the use of Sub Menu. A Toast message should appear when a submenu item is selected. This application creates a toolbar with a submenu containing About, Help, and Feedback options. When the user selects any submenu item, a Toast message is displayed showing the selected option.
+step 1: Gradle Scripts -> libs.version.toml -> agp = 8.9.1
+step 2: Gradle Scripts -> build.gradle.kts -> compilesdk = 36
+step 3: Sync Now
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+ 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_purple"
+        app:title="Sub Menu"
+        app:titleTextColor="@android:color/white" />
+ 
+</LinearLayout>
+ 
+ NEXT STEP:
+app --> res → New → Android Resource Directory → Resource type: menu
+now right click this menu folder -> new -> menu resource file -> filename - menu.xml
+menu.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+ 
+    <item
+        android:id="@+id/setting"
+        android:title="Setting"
+        app:showAsAction="never">
+ 
+        <menu>
+            <item
+                android:id="@+id/about"
+                android:title="About" />
+ 
+            <item
+                android:id="@+id/help"
+                android:title="Help" />
+ 
+            <item
+                android:id="@+id/feedback"
+                android:title="Feedback" />
+        </menu>
+ 
+    </item>
+</menu>
+
+MainActivity.kt
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+ 
+class MainActivity : AppCompatActivity() {
+ 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+ 
+        val toolbar: Toolbar = findViewById(R.id.my_toolbar)
+        setSupportActionBar(toolbar)
+    }
+ 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+ 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+ 
+        when (item.itemId) {
+ 
+            R.id.about -> {
+                Toast.makeText(this, "About Selected", Toast.LENGTH_SHORT).show()
+            }
+ 
+            R.id.help -> {
+                Toast.makeText(this, "Help Selected", Toast.LENGTH_SHORT).show()
+            }
+ 
+            R.id.feedback -> {
+                Toast.makeText(this, "Feedback Selected", Toast.LENGTH_SHORT).show()
+            }
+ 
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+}
+output :
+⋮  (3 dots menu)
+   Setting >
+      About
+      Help
+      Feedback
+--------------------------------------------------------------------------------------------------------------------
+Practical 7A : Create an Android application to generate a notification. When the user clicks the notification, it should redirect to MainActivity. This application generates a system notification using NotificationManager. When the user clicks the notification, it redirects back to the MainActivity using PendingIntent
+
+
+ 
+step 1: Gradle Scripts -> libs.version.toml -> agp = 8.9.1
+step 2: Gradle Scripts -> build.gradle.kts -> compilesdk = 36
+step 3: Sync Now
+step 4: app -> manifests -> AndroidManifests.xml : after <manifest> add this :
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+ 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@android:color/holo_purple"
+        android:title="Notification Practical"
+        android:titleTextColor="@android:color/white" />
+ 
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notify"
+        android:layout_marginTop="40dp"/>
+ 
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+MainActivity.kt
+
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Bundle
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
+ 
+class MainActivity : AppCompatActivity() {
+ 
+    lateinit var btn: Button
+    private val CHANNEL_ID = "my_notification_channel"
+ 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+ 
+        btn = findViewById(R.id.btn)
+ 
+        // Request notification permission (Android 13+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    10
+                )
+            }
+        }
+ 
+        btn.setOnClickListener {
+ 
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+ 
+            // Create notification channel (Android 8+)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(
+                    CHANNEL_ID,
+                    "My Notification Channel",
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+                notificationManager.createNotificationChannel(channel)
+            }
+ 
+            // Intent to open MainActivity when clicked
+            val intent = Intent(this, MainActivity::class.java)
+ 
+            val pendingIntent = PendingIntent.getActivity(
+                this, 0, intent, PendingIntent.FLAG_IMMUTABLE
+            )
+ 
+            val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Notification Alert")
+                .setContentText("Hi, This is your notification detail!")
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .build()
+ 
+            notificationManager.notify(1, notification)
+        }
+    }
+}
+ 
+Output : Tap Notify button -> Notification appears in status bar -> Click notification -> App opens MainActivity
+
+--------------------------------------------------------------------------------------------------------------------------
+Practical 7B: Create an Android application to generate two notifications: one non-clickable and another clickable (which reloads the current application). This application generates two types of notifications using NotificationManager. One notification reloads the application when clicked, while the other does not respond to user interaction.
+step 1: Gradle Scripts -> libs.version.toml -> agp = 8.9.1
+step 2: Gradle Scripts -> build.gradle.kts -> compilesdk = 36
+step 3: Sync Now
+step 4: app -> manifests -> AndroidManifests.xml : after <manifest> add this :
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:title="Notification"
+        android:background="#CE9E06" />
+
+    <Button
+        android:id="@+id/btnShowNonClickableNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Non-Clickable Notification" />
+
+    <Button
+        android:id="@+id/btnShowClickableNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Clickable Notification" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+MainActivity.kt
+
+import android.app.*
+import android.content.*
+import android.content.pm.PackageManager
+import android.os.*
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+
+class MainActivity : AppCompatActivity() {
+
+    private val CHANNEL_ID = "my_channel"
+    private val N1 = 1
+    private val N2 = 2
+
+    override fun onCreate(b: Bundle?) {
+        super.onCreate(b)
+        setContentView(R.layout.activity_main)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+                requestPermissions(
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    101
+                )
+            }
+        }
+
+        createChannel()
+
+        findViewById<Button>(R.id.btnShowNonClickableNotification)
+            .setOnClickListener { showNonClickable() }
+
+        findViewById<Button>(R.id.btnShowClickableNotification)
+            .setOnClickListener { showClickable() }
+    }
+
+    private fun createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val ch = NotificationChannel(
+                CHANNEL_ID,
+                "My Channel",
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            val manager = getSystemService(Context.NOTIFICATION_SERVICE)
+                    as NotificationManager
+            manager.createNotificationChannel(ch)
+        }
+    }
+
+    private fun showClickable() {
+        val pi = PendingIntent.getActivity(
+            this,
+            0,
+            Intent(this, MainActivity::class.java),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val n = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle("Clickable Notification")
+            .setContentText("Click to reload the app")
+            .setContentIntent(pi)
+            .setAutoCancel(true)
+            .build()
+
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE)
+                as NotificationManager
+        manager.notify(N2, n)
+    }
+
+    private fun showNonClickable() {
+        val n = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle("Non-Clickable Notification")
+            .setContentText("This notification cannot be clicked.")
+            .setAutoCancel(true)
+            .build()
+
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE)
+                as NotificationManager
+        manager.notify(N1, n)
+    }
+}
+output:
+
+Button 1 → Non-clickable notification
+Button 2 → Clickable notification → Reopens app
+---------------------------------------------------------------------------------------------------------------------------
+Practical 8: Create an Android application to demonstrate the use of Fragments. When the user clicks Button1 it loads Fragment1, and when the user clicks Button2 it loads Fragment2. This application demonstrates dynamic fragment loading using FragmentManager. When the user clicks a button, the corresponding fragment replaces the FrameLayout container. 
+step 1: Gradle Scripts -> libs.version.toml -> agp = 8.9.1
+step 2: Gradle Scripts -> build.gradle.kts -> compilesdk = 36
+step 3: Sync Now
+step 4: create fragment file 
+
+app > java > your package name > right click it > New → Fragment → Fragment (Blank) 
+ 
+
+Fragment Name: Fragment_1
+Layout Name: fragment_1
+Create Fragment 2
+Same steps:
+
+Fragment Name: Fragment_2
+Layout Name: fragment_2
+
+step 5 :
+app > res > layout 
+
+fragement_1.xml
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+ 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Hello from Fragment 1"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:background="@android:color/holo_red_light"/>
+ 
+</FrameLayout>
+fragment_2.xml
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+ 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Hello from Fragment 2"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:background="@android:color/holo_blue_light"/>
+ 
+</FrameLayout>
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+ 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+ 
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fragment1"/>
+ 
+        <Button
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fragment2"/>
+    </LinearLayout>
+ 
+    <FrameLayout
+        android:id="@+id/frame_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+ 
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+MainAcitivity.kt
+ 
+
+import android.os.Bundle
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+ 
+class MainActivity : AppCompatActivity() {
+ 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+ 
+        val button1 = findViewById<Button>(R.id.btn1)
+        val button2 = findViewById<Button>(R.id.btn2)
+ 
+        button1.setOnClickListener {
+            loadFragment(Fragment_1())
+        }
+        button2.setOnClickListener {
+            loadFragment(Fragment_2())
+        }
+    }
+ 
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_1, fragment)
+            .commit()
+    }
+}
+output: two  buttons, when clicked respective fragment appears
+-----------------------------------------------------------------------------------------------------------------
+
+Practical 9 - Alert dialog fragment
+ 
+
+Right-click app → java → your package
+
+Select New → Fragment → Fragment (Blank)
+
+Name it: BlankFragment
+
+files created are :
+
+BlankFragment.kt
+fragment_blank.xml
+ 
+
+Step 3: activity_main.xml (Main Screen with Login Button)
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/main"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:layout_margin="50dp">
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+
+<Button
+android:id="@+id/btn1"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="Login"
+android:textStyle="bold"
+android:textSize="40dp"
+android:textColor="#FF9800"/>
+
+</LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+ 
+
+Step 4: fragment_blank.xml (Login Dialog Layout)
+ 
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:padding="40dp"
+android:background="#B1050B"
+android:orientation="vertical">
+
+<TextView
+android:id="@+id/msg"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:textColor="@android:color/white"/>
+
+<EditText
+android:id="@+id/edtname"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="user name"
+android:textSize="20dp"
+android:textColor="#F8F6F6"/>
+
+<EditText
+android:id="@+id/edtpass"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="password"
+android:textSize="20dp"
+android:textColor="#F8F6F6"/>
+
+<LinearLayout
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:padding="5dp">
+
+<Button
+android:id="@+id/login"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="login"
+android:textColor="#F8F6F6"/>
+
+<Button
+android:id="@+id/cancel"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="cancel"
+android:textColor="#F8F6F6"/>
+
+</LinearLayout>
+
+</LinearLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+ 
+
+Step 5: MainActivity.kt (Call Fragment)
+
+import android.os.Bundle
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+class MainActivity : AppCompatActivity() {
+lateinit var btncall: Button
+override fun onCreate(savedInstanceState: Bundle?) {
+super.onCreate(savedInstanceState)
+setContentView(R.layout.activity_main)
+btncall = findViewById(R.id.btn1)
+btncall.setOnClickListener {
+val fragment = BlankFragment()
+supportFragmentManager
+.beginTransaction()
+.add(android.R.id.content, fragment)
+.addToBackStack(null)
+.commit()
+}
+}
+}
+ 
+
+Step 6: BlankFragment.kt
+ 
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+
+class BlankFragment : Fragment() {
+
+override fun onCreateView(
+inflater: LayoutInflater, container: ViewGroup?,
+savedInstanceState: Bundle?
+): View {
+
+val rootview = inflater.inflate(R.layout.fragment_blank, container, false)
+
+val loginbtn = rootview.findViewById<Button>(R.id.login)
+val user = rootview.findViewById<EditText>(R.id.edtname)
+val password = rootview.findViewById<EditText>(R.id.edtpass)
+val cancel = rootview.findViewById<Button>(R.id.cancel)
+val message = rootview.findViewById<TextView>(R.id.msg)
+
+loginbtn.setOnClickListener {
+message.text = "Hello " + user.text.toString()
+}
+
+cancel.setOnClickListener {
+parentFragmentManager.beginTransaction().remove(this).commit()
+}
+
+return rootview
+}
+}
+ 
+
+ 
+
+practical 10 : explicit intent
+
+
+Step 2: Create Second Activity
+ 
+Right click app → java → package name
+ 
+Click New → Activity → Empty Activity
+ 
+Name the activity: seconds
+ 
+ 
+seconds.kt
+activity_seconds.xml
+ 
+MainActivity.kt
+ 
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
+ 
+class MainActivity : AppCompatActivity() {
+    lateinit var button: Button
+    lateinit var editText: EditText
+ 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+ 
+        editText = findViewById(R.id.texts)
+        button = findViewById(R.id.send)
+ 
+        button.setOnClickListener {
+ 
+            val intent = Intent(this,seconds::class.java)
+ 
+            intent.putExtra("message",editText.text.toString())
+ 
+            startActivity(intent)
+        }
+    }
+}
+ 
+ 
+ activity_main.xml
+ 
+Open
+ 
+res → layout → activity_main.xml
+ 
+ 
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/main"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity"
+android:orientation="vertical"
+>
+ 
+<EditText
+    android:text="Enter your name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/texts"
+    android:textStyle="bold"
+    android:textColor="#4C6987"
+    android:textSize="30dp"
+/>
+ 
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/send"
+    android:text="send"
+    android:padding="10dp"
+    android:textSize="24dp"
+/>
+ 
+</androidx.appcompat.widget.LinearLayoutCompat>
+ 
+ 
+Step 5:  seconds.kt
+ 
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+ 
+class seconds : AppCompatActivity() {
+ 
+    lateinit var button: Button
+    lateinit var editText: TextView
+    lateinit var viewtext : TextView
+ 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_seconds)
+ 
+       button = findViewById(R.id.send_button)
+        editText = findViewById(R.id.textdisplay)
+        viewtext = findViewById(R.id.msg)
+ 
+        var bundle : Bundle ? = intent.extras
+        var message = bundle!!.get("message")
+ 
+        editText.text=message.toString()
+ 
+        button.setOnClickListener {
+ 
+            startActivity(Intent(this,MainActivity::class.java))
+ 
+        }
+    }
+}
+ 
+Step 6: Create activity_seconds.xml
+ 
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/main"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".seconds"
+android:orientation="vertical">
+ 
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Hello"
+    android:textSize="24dp"
+    android:textColor="#407CB8"
+    android:id="@+id/textdisplay">
+</TextView>
+ 
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/send_button"
+    android:text="Home"
+    android:textColor="#1E3245"
+    android:textStyle="bold">
+</Button>
+ 
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/msg">
+</TextView>
+ 
+</androidx.appcompat.widget.LinearLayoutCompat>
+Step 7: Run the Program
+ 
+Click Run ▶
+ 
+Screen 1
+Enter your name
+[ send ]
+ 
+User enters name and clicks send
+ 
+Screen 2
+Hello <name>
+ 
+[ Home ]
+ 
+Press Home
+ 
+→ returns to MainActivity
+
+
+
